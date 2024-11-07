@@ -1,0 +1,5 @@
+package com.hyi.dev.dto;
+
+public class BookLogCreateDTO {
+
+}

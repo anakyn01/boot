@@ -1,0 +1,13 @@
+package com.hyi.dev.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class BookLogCreateDTO {
+	@NonNull
+	@Positive
+	private Integer bookId;
+
+}

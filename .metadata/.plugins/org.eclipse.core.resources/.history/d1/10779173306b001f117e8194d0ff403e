@@ -1,0 +1,11 @@
+package com.hyi.dev.controller;
+/*
+Representational State Transfer API => 
+- 직관적
+
+경랼형 데이터 json 
+*/
+@RestContoller
+public class BookLogController {
+
+}

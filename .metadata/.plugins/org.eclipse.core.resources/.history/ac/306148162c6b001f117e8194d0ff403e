@@ -1,0 +1,13 @@
+package com.hyi.dev.service;
+
+import org.springframework.stereotype.Service;
+
+import com.hyi.dev.entity.BookLogRepository;
+import com.hyi.dev.entity.BookRepository;
+
+@Service
+public class BookLogService {
+	private BookRepository bookRepository;
+	private BookLogRepository bookLogRepository;
+
+}

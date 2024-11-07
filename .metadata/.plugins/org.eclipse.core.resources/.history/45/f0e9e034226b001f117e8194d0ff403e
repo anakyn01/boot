@@ -1,0 +1,5 @@
+package com.hyi.dev.entity;
+
+public class BookLog {
+
+}

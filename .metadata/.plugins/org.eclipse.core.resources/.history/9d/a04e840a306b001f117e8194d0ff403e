@@ -1,0 +1,7 @@
+package com.hyi.dev.controller;
+/*
+REST API => 직관적
+*/
+public class BookLogController {
+
+}

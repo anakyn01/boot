@@ -1,0 +1,8 @@
+package com.hyi.dev.dto;
+
+@NoArgsConstructor
+@Getter
+@Setter
+public class BookLogReadResponseDTO {
+
+}

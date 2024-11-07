@@ -1,0 +1,25 @@
+package com.hyi.dev.service;
+
+import org.springframework.stereotype.Service;
+
+import com.hyi.dev.dto.BookLogCreateDTO;
+import com.hyi.dev.dto.BookLogCreateResponseDTO;
+import com.hyi.dev.entity.BookLogRepository;
+import com.hyi.dev.entity.BookRepository;
+
+@Service//기록 서비스
+public class BookLogService {
+	private BookRepository bookRepository;
+	private BookLogRepository bookLogRepository;
+	
+	public BookLogService(BookRepository bookRepository, BookLogRepository bookLogRepository) {
+		this.bookRepository = bookRepository;
+		this.bookLogRepository = bookLogRepository;
+	}
+	
+	public BookLogCreateResponseDTO insert (BookLogCreateDTO bookLogCreateDTO) {
+		
+	}
+	
+
+}

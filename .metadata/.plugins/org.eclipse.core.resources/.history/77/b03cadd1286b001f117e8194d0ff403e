@@ -1,0 +1,19 @@
+package com.hyi.dev.dto;
+
+import com.hyi.dev.entity.BookLog;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@Getter
+public class BookLogCreateResponseDTO {
+private Integer bookLogId;
+private Integer bookId;
+private String comment;
+private Integer page;
+
+public BookLogCreateResponseDTO fromBookLog(BookLog bookLog) {
+	
+}
+}

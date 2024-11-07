@@ -1,0 +1,38 @@
+package com.hyi.dev.entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class BookLog {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer bookLogId;
+	/*
+	관계형 데이터 베이스에서 거의 대부분의 테이블은 주키(primary key)가 필요합니다
+	*/
+	@ManyToOne(fetch = FetchType.LAZY)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+}

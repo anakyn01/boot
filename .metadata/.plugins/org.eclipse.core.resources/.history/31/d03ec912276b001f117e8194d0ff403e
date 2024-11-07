@@ -1,0 +1,5 @@
+package com.hyi.dev.entity;
+
+public interface BookLogRepository extends JpaRepository<BookLog, Integer>{
+
+}

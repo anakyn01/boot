@@ -1,0 +1,31 @@
+package com.hyi.dev.dto;
+
+import java.time.LocalDateTime;
+
+import com.hyi.dev.entity.BookLog;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@Getter
+@Setter
+public class BookLogReadResponseDTO {
+	private Integer bookLogId;
+	private String comment;
+	private Integer page;
+	private LocalDateTime insertDateTime;
+	private String displayComment;
+	
+	public BookLogReadResponseDTO fromBooklog(BookLog bookLog) {
+		this.bookLogId =
+		this.comment =
+		this.page =
+		this.insertDateTime =
+		this.displayComment = 
+		return this;		
+				
+	}
+
+}
