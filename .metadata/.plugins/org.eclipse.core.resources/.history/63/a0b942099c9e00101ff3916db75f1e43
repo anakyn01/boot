@@ -1,0 +1,6 @@
+package com.sm.kr.service;
+
+@Service
+public class BootService {
+
+}

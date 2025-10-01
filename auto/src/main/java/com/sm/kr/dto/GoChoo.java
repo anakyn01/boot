@@ -1,0 +1,66 @@
+package com.sm.kr.dto;
+
+public class GoChoo {
+	
+	private int idx;
+	private String yourName, yourPhone, yourAdress, yourAge, yourEmail, yourGender, yourTell;
+	
+	
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+	
+	public String getYourName() {
+		return yourName;
+	}
+	public String getYourPhone() {
+		return yourPhone;
+	}
+	
+
+
+	public void setYourName(String yourName) {
+		this.yourName = yourName;
+	}
+
+	public void setYourPhone(String yourPhone) {
+		this.yourPhone = yourPhone;
+	}
+	public String getYourAdress() {
+		return yourAdress;
+	}
+	public void setYourAdress(String yourAdress) {
+		this.yourAdress = yourAdress;
+	}
+	public String getYourAge() {
+		return yourAge;
+	}
+	public void setYourAge(String yourAge) {
+		this.yourAge = yourAge;
+	}
+	public String getYourEmail() {
+		return yourEmail;
+	}
+	public void setYourEmail(String yourEmail) {
+		this.yourEmail = yourEmail;
+	}
+	public String getYourGender() {
+		return yourGender;
+	}
+	public void setYourGender(String yourGender) {
+		this.yourGender = yourGender;
+	}
+	public String getYourTell() {
+		return yourTell;
+	}
+	public void setYourTell(String yourTell) {
+		this.yourTell = yourTell;
+	}
+	
+	
+	
+
+}

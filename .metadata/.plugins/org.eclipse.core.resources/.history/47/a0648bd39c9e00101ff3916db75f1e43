@@ -1,0 +1,9 @@
+package com.sm.kr.service;
+
+import org.springframework.stereotype.Service;
+
+@Service //이클래스가 서비스 컴포넌트임을 나타내고 
+//spring이 이 클래스를 Bean으로 등록하여 DI(의존성 주입)등을 가능하게 해줌
+public class BootService {
+
+}

@@ -1,0 +1,17 @@
+package com.sm.kr.service;
+
+import org.springframework.stereotype.Service;
+
+import com.sm.kr.entity.BootRepository;
+
+@Service //이클래스가 서비스 컴포넌트임을 나타내고 
+//spring이 이 클래스를 Bean으로 등록하여 DI(의존성 주입)등을 가능하게 해줌
+public class BootService {
+	
+	//BootRepository를 생성자로 주입받음{생성자 기반 의존성 주입}
+	private BootRepository bootRepository;
+	
+	//BootService 생성자 만듬 
+	
+	
+}

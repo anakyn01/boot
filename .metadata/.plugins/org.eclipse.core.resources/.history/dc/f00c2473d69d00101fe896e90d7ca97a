@@ -1,0 +1,6 @@
+package com.sm.kr.entity;
+
+@Entity //이클래스가 jpa 엔티티임을 나타냅니다
+public class Boot {
+
+}
