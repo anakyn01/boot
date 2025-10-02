@@ -1,0 +1,31 @@
+package com.sm.kr.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.sm.kr.dto.BootCreateDTO;
+import com.sm.kr.service.BootService;
+
+@Controller
+public class AutoController {
+	
+	@Autowired
+	private BootService bootService;
+	
+	@GetMapping("lunch/create")//url 리턴
+	public String create() {
+		return "lunch/create";
+	}
+	@PostMapping("lunch/create")
+	public String insert(BootCreateDTO bootCreateDTO) {
+		Integer bootId= this.bootService.insert(bootCreateDTO);
+		return String.format("redirect:/lunch/read/%s", bootId);
+	}
+	
+	
+	
+	
+
+}

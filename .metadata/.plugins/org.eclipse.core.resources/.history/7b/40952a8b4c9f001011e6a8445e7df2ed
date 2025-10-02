@@ -1,0 +1,81 @@
+package com.sm.kr.service;
+
+import java.util.NoSuchElementException;
+
+import org.springframework.stereotype.Service;
+
+import com.sm.kr.dto.BootCreateDTO;
+import com.sm.kr.dto.BootReadResponseDTO;
+import com.sm.kr.entity.Boot;
+import com.sm.kr.entity.BootRepository;
+
+@Service //이클래스가 서비스 컴포넌트임을 나타내고 
+//spring이 이 클래스를 Bean으로 등록하여 DI(의존성 주입)등을 가능하게 해줌
+public class BootService {
+	
+	//BootRepository를 생성자로 주입받음{생성자 기반 의존성 주입}
+	//jpa리파지토리 db에 저장 /조회 기능 수행
+	//why 생성자 1)bootRepository를 BootService DB작업을 하면 
+//bootRepository는 우리가 직접 객체로 만들지 않고 
+	//Spring 관리하는건 빈
+	// 스프링이 자동으로 주입해줄수 잇게 하기위해 해주는 것이 생성자 주입입니다
+	
+	private BootRepository bootRepository;
+	
+	
+	//BootService 생성자 만듬 BootRepository를 매개변수로 생성자 주입
+	public BootService(BootRepository bootRepository) {
+		this.bootRepository = bootRepository;
+	}
+	
+	//비즈니스로직 insert
+	public Integer insert(BootCreateDTO bootCreateDTO) {
+		Boot boot = Boot.builder().
+		title(bootCreateDTO.getTitle())
+		.price(bootCreateDTO.getPrice())
+		.build();
+		this.bootRepository.save(boot);	//데이터 베이스 한줄을 저장소에 저장 	
+
+		return boot.getBootId();
+	}
+	
+	//비즈니스로직 read
+	public BootReadResponseDTO read(Integer bootId) throws NoSuchElementException{
+/*
+BootReadResponseDTO : 리턴 타입 (클라이언트에 응답할 객체)
+read(Integer bootId) :파라미터로 하나의 id를 받음
+throws NoSuchElementException : 해당 id가 없으면 예외발생
+*/
+		Boot boot = this.bootRepository.findById(bootId).orElseThrow();
+//커맨드 부트에 = 현재클래스에 리파지토리객체(bootRepository)에서 pk을 찾거나 예외가 발생되거나 findById jpa에서 제공하는 메서드
+//orElseThrow() 만약 안에 값이 null ji tae 라면 예외를 던집니다
+		//이줄이 가능하려면 @NoArgsConstructor
+		BootReadResponseDTO bootReadResponseDTO = new BootReadResponseDTO();//객체 생성
+		//DTO 반환 클라이언트나 컨트롤러로 응답 DTO객체를 리턴
+		bootReadResponseDTO.fromBoot(boot);
+		
+		
+	}
+	
+/*
+Java Persistence API : 객체와 관계형 데이터베이스 (RDB)를 매핑해주는 표준 Object Relation Mapping API입니다
+자바클래스 - 데이터베이스 테이블 맵핑
+자바객체 - 테이블 행(row)
+
+jpa를 사용하는 이유 
+생산성 : SQL을 직접 쓰는 양이 줄어듬 (Entity, Repository 등으로 처리가 가능하다)
+유지보수성 : 객체 지향적인 코드 유지 가능
+이식성 : DB벤더(Oracle, MySQL, postgre.., h2)교체가 쉬움
+성능 : 1차 캐시, 지연 로딩, 벌크 연산 등 다양한 최적화 기능을 제공
+표준화 : 자바진영에서(오라클) 공식적으로 정한 표준 ORM API
+*/	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}

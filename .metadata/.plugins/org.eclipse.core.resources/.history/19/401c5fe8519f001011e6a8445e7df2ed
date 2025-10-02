@@ -1,0 +1,60 @@
+package com.sm.kr.controller;
+
+import java.util.NoSuchElementException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.sm.kr.dto.BootCreateDTO;
+import com.sm.kr.dto.BootReadResponseDTO;
+import com.sm.kr.service.BootService;
+
+@Controller
+public class AutoController {
+	
+	@Autowired
+	private BootService bootService;
+	
+	@GetMapping("lunch/create")//url 리턴
+	public String create() {
+		return "lunch/create";
+	}
+	
+	@PostMapping("lunch/create")
+	public String insert(BootCreateDTO bootCreateDTO) {
+		Integer bootId= this.bootService.insert(bootCreateDTO);
+		return String.format("redirect:/lunch/read/%s", bootId);
+	}
+	
+	/*기존에 있던 리턴시키는것 url */
+	@GetMapping("lunch/read/{bootId}")
+	public ModelAndView read(@PathVariable Integer bootId) {
+	ModelAndView mav = new ModelAndView();
+	
+	try {//정상적인 로직을 실행
+		BootReadResponseDTO bootReadResponseDTO = this.bootService.read(bootId);
+		//모델에 "bootReadResponseDTO" 라는 name로  bootReadResponseDTO라는 객체를 추가 
+		mav.addObject("bootReadResponseDTO",bootReadResponseDTO);
+		mav.setViewName("boot/read");
+	}catch(NoSuchElementException ex) {
+		
+	}
+	/*
+	@PathVariable Integer bootId 
+	url 경로에 전달된 bootId값을 Integer 타입으로 받아옵니다
+	Model(brain 데이터베이스 작동 로직 backend) 
+	View(화면에 그려지는 걸 frontend)
+	*/
+	
+	return mav;
+	}
+	
+	
+	
+	
+
+}

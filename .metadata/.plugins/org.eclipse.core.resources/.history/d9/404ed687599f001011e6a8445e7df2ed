@@ -1,0 +1,47 @@
+
+
+<div w3-include-html="http://localhost:8282/include/header.html"></div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+<h1 class="mt67 mb-3">read</h1>  
+<p class="mt-2">
+	<label class="form-label">제목</label>
+	<span th:text="${bootReadResponseDTO.title}"></span>
+</p>
+<p class="mt-2">
+	<label class="form-label">가격</label>
+<span th:text="${#numbers.formatInteger(bootReadResponseDTO.price, 3, 'COMMA')}"></span>
+</p>
+<p class="mt-2">
+	<label class="form-label"></label>
+<span th:text="${#temporals.format(bootReadResponseDTO.insertDateTime,'yyyy-MM-dd HH:mm')}"></span>
+</p>
+<p class="mt-2">
+	<label class="form-label"></label>
+</p>
+
+<div class="d-flex mt-5 mb-3 justify-content-end">
+	<div class="btn-group"><!--버튼이 여러개인데 결합할때 사용하는 클래스-->
+		<a 
+		th:href="@{/boot/edit/{id}(id=${bootReadResponseDTO.bootId})}" 
+		th:text="수정" 
+		class="btn btn-outline-success"
+		></a>
+		<a 
+		th:href="@{/boot/edit/{id}(id=${bootReadResponseDTO.bootId})}" 
+		th:text="목록" 
+		class="btn btn-outline-success"
+		></a>
+   </div>
+</div>
+        </div>
+    </div>
+</div>
+ 
+
+<div w3-include-html="http://localhost:8282/include/footer.html"></div>
+<script src="http://localhost:8282/js/js.js"></script>
+<script>
+includeHTML();//함수실행명령
+</script>
