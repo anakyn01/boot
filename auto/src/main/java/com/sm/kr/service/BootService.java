@@ -7,6 +7,8 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.sm.kr.dto.BootCreateDTO;
+import com.sm.kr.dto.BootEditDTO;
+import com.sm.kr.dto.BootEditResponseDTO;
 import com.sm.kr.dto.BootReadResponseDTO;
 import com.sm.kr.entity.Boot;
 import com.sm.kr.entity.BootRepository;
@@ -74,6 +76,28 @@ jpa를 사용하는 이유
 성능 : 1차 캐시, 지연 로딩, 벌크 연산 등 다양한 최적화 기능을 제공
 표준화 : 자바진영에서(오라클) 공식적으로 정한 표준 ORM API
 */	
+	
+	//수정 
+	/*
+	접근제어자 public : 외부에서 호출가능
+	반환타입 : BootEditResponseDTO 수정 화면등에 사용할수 있는 데이터 DTO객체를 리턴
+	메서드이름 : edit 수정을 시작할때 호출하는 메서드
+	매개변수 : Integer bootId 조회하고자하는 순번id
+	예외처리 : throws NoSuchElementException 주어진 id에 순번을 찾지못하면 발생
+	글을 수정하기위해 수정할 글을 저장소에서 불러옴
+	*/
+	public BootEditResponseDTO edit(Integer bootId) throws NoSuchElementException{
+		Boot boot = this.bootRepository.findById(bootId).orElseThrow();
+		return BootEditResponseDTO.BootFactory(boot);
+	}
+	//수정하는 서비스로직을 전달 (파라미터 : 수정할 정보를 담고 있는 DTO)
+	public void update(BootEditDTO bootEditDTO)throws NoSuchElementException{
+		Boot boot = this.bootRepository.findById(bootEditDTO.getBootId()).orElseThrow();
+		boot = bootEditDTO.fill(boot);
+		//보통 fill()메서드는  DTO의 값을 엔티티에 덮어쓰는 식으로 구현되어 있습니다
+		this.bootRepository.save(boot);
+	}
+
 	
 	
 	

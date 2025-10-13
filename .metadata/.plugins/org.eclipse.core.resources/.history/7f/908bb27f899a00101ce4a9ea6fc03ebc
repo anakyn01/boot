@@ -1,3 +1,0 @@
-spring.application.name=auto
-Copyserver.servlet.encoding.charset=UTF-8
-server.servlet.encoding.enabled=true
