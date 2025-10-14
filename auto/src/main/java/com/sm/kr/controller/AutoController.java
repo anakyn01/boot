@@ -1,5 +1,6 @@
 package com.sm.kr.controller;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sm.kr.dto.BootCreateDTO;
 import com.sm.kr.dto.BootEditDTO;
 import com.sm.kr.dto.BootEditResponseDTO;
+import com.sm.kr.dto.BootListResponseDTO;
 import com.sm.kr.dto.BootReadResponseDTO;
 import com.sm.kr.service.BootService;
 
@@ -134,12 +136,48 @@ public class AutoController {
 		return mav;
 	}
 
-	private ModelAndView error422(String errorMessage, String format) {
-		// TODO Auto-generated method stub
-		return null;
+	private ModelAndView error422(String errorMessage, String redirectUrl) {
+		ModelAndView mav  = new ModelAndView("redirect" + redirectUrl);
+        mav.addObject("error", errorMessage);
+
+		return mav;
 	}
 
+	
+	//delete 삭제 하고 리스트로 보내기..
+	@PostMapping("/lunch/delete")
+	public String delete(Integer bootId) throws NoSuchElementException{
+		this.bootService.delete(bootId);
+		return "redirect:/lunch/list";
+	}
 
+	
+	//목록
+	@GetMapping(value= {"/lunch/list", "/lunch"})
+	public ModelAndView bootList(String title, Integer page, ModelAndView mav) {
+		
+		mav.setViewName("/lunch/list");
+		List<BootListResponseDTO> boots = this.bootService.bootList(title, page);
+		mav.addObject("boots", boots);
+		return mav;
+		/*
+		자바 제네릭(Generic)은 클래스나 메서드에서 사용할 데이터 타입을 일반화(추상화)해서 정의하는 
+		문법 입니다 
+		
+		어렵게 talk **타입을 변수처럼 쓰겠다
+		
+		제네릭이 없을경우
+		List list = new ArrayList();
+		list.add("hello");
+		list.add(123);
+		
+		String s = (String) list.get();
+		
+		List<String> list = new ArrayList<>();
+		
+		public class Box<T>
+		*/
+	}
 	
 	
 	

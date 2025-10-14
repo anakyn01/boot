@@ -1,14 +1,22 @@
 package com.sm.kr.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import com.sm.kr.dto.BootCreateDTO;
 import com.sm.kr.dto.BootEditDTO;
 import com.sm.kr.dto.BootEditResponseDTO;
+import com.sm.kr.dto.BootListResponseDTO;
 import com.sm.kr.dto.BootReadResponseDTO;
 import com.sm.kr.entity.Boot;
 import com.sm.kr.entity.BootRepository;
@@ -97,14 +105,52 @@ jpa를 사용하는 이유
 		//보통 fill()메서드는  DTO의 값을 엔티티에 덮어쓰는 식으로 구현되어 있습니다
 		this.bootRepository.save(boot);
 	}
-
+	
+	//삭제 기능 로직
+	public void delete(Integer bootId) throws NoSuchElementException{
+		Boot boot = this.bootRepository.findById(bootId).orElseThrow();
+		this.bootRepository.delete(boot);
+	}
 	
 	
+	//list
+	public List<BootListResponseDTO> bootList(String title, Integer page){
+		
+		final int pageSize = 3;//불변으로 만들때 한페이지에 보여줄 개수를 3개로 설정
+		
+		List<Boot> boots;
+		
+		//page가 널인 경우 0페이지로 설정(즉 첫페이지)
+		if (page == null) {
+			page = 0;
+		} else {
+			page -= 1;
+		}
+		
+		if (title == null) {//title이 null이면 전체목록을 가져옴 검색 x
+			// 전체 리스트를 최신순(내림차순)으로 페이징 조회
+			
+//페이지번호(page), 페이지크기(pageSize), 정렬기준(insertDateTime 내림차순) 으로 페이징 설정 
+			Pageable pageable = PageRequest.of(page, pageSize, Direction.DESC, "insertDateTime");
+			/**/boots = this.bootRepository.findAll(pageable).toList();		
+		
+		}else {//title 이 null이 아니면			
+			Sort sort = Sort.by(Order.desc("insertDateTime"));
+			Pageable pageable = PageRequest.of(page, pageSize, sort);
+			boots = this.bootRepository.findByTitleContains(title, pageable);
+		}
+		
+		return boots.stream().map(
+				boot -> new BootListResponseDTO(boot.getBootId(), boot.getTitle())
+		).collect(Collectors.toList());
+		
+		/*
+		.stream() 은 컬렉션을  Stream으로 변환합니다
+		Stream은 데이터를 순차적으로 처리할수 있는 java의 기능으로 함수형 스타일의 프로그래밍을 가능하게 해줍니다
+		map()은 스트림에 각요소를 변환하는데 사용합니다
+		collect => 변환된 스트림 요소들을 List로 수집합니다 
+		결과적으로 List<BootListResponseDTO>가 반환됩니다
+		*/
+	}	
 	
-	
-	
-	
-	
-	
-	
-}
+}//end
